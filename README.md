@@ -1,9 +1,22 @@
+<br>
+<div align="center">
+    <a href="https://lensview.io/" style="font-size: x-large" target="_blank"><b>lensview.io↗️</b></a>
+</div>
+
 ## 🌿 About LensView
 
 LensView is revolutionizing the way people interact with the internet by creating an omnipresent comment section. With billions trillions of webpages out there, one crucial element is often missing—people's views about them. That's where Lensview comes in. Unlike traditional centralized comment sections limited to a few platforms, Lensview is a decentralized platform built on the Lens Protocol. It empowers users to transform any webpage into a dynamic source of discussion, enabling them to share diverse perspectives—whether they are positive, negative, or neutral. Join us in shaping the future of online discourse with Lensview.
 
+## 🏄🏿‍♂️ LensView's Browser Extension
+
+<a href="https://chromewebstore.google.com/detail/lensview/bhbcbfcabkodjhgkjccnoflnffcfkfnd" target="_blank" rel="noreferrer">
+    <img alt="Available in the Chrome Web Store" src="https://storage.googleapis.com/web-dev-uploads/image/WlD8wC6g8khYWPJUsQceQkhXSlv1/HRs9MPufa1J1h5glNhut.png" width="256">
+</a>
+
+![lensview extension](images/lensview-extension.jpg)
+
 ## 📽️ Demo & Presentation Video
-<a href="https://youtu.be/Q-Ni7IC5kxI?si=dfqsBttH0AzZ1RgL"  target="_blank">
+<a href="https://www.youtube.com/watch?v=k5HQXqcYkRA"  target="_blank">
 <img src="images/demo.png" alt="lensview demo"/>
 </a>
 
@@ -42,9 +55,6 @@ Lensview has garnered an impressive following among <b>notable individuals on tw
 <a href="https://github.com/lens-protocol/core.git">Lens Protocol</a>  is a Web3 social graph on the Polygon
 Proof-of-Stake blockchain.
 
-## 📊 Repo Activity
-
-<img width="100%" src="https://repobeats.axiom.co/api/embed/0a81d83e295d571735394171890674b96cbab24a.svg" alt="Repobeats analytics" />
 
 ## 💕 Contributors
 

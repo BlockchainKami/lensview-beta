@@ -671,12 +671,6 @@
     gap: 0.5rem;
   }
 
-  @keyframes shine {
-    to {
-      background-position-x: -200%;
-    }
-  }
-
   .card__left-loader,
   .card__right-loader {
     background: linear-gradient(110deg, #0d9397 8%, #63bdc8 18%, #0d9397 33%);

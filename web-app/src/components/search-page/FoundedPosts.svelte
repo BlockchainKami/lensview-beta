@@ -633,12 +633,6 @@
     width: 14.8rem;
   }
 
-  @keyframes shine {
-    to {
-      background-position-x: -200%;
-    }
-  }
-
   .mobile__card__info__loader,
   .mobile__card__post__user-pic-loader,
   .mobile__card__post__info__head-loader,
@@ -848,12 +842,6 @@
   .card__body__post__info__head__time {
     font-size: var(--small-font-size);
     color: var(--text-accent);
-  }
-
-  @keyframes shine {
-    to {
-      background-position-x: -200%;
-    }
   }
 
   .card__img-box__loader,

@@ -36,6 +36,7 @@
   import type { CommentsPublicationLensModel } from "../models/lens/comments-publication.lens.model";
   import { goto } from "$app/navigation";
   import NoWebPageImg from "$lib/assets/NoWebPageImg.png";
+  import { page } from "$app/stores";
   const { VITE_APP_LENS_ID } = import.meta.env;
 
   type KeyStringValBoolean = {
@@ -50,8 +51,12 @@
     threshold: 1
   };
   let isInView: KeyStringValBoolean = {};
+  let userEnteredUrl = "";
+  let isUrlInvalid = true;
 
   onMount(() => {
+    checkSearchQueryForOpeningCreateModal();
+
     metaTagsTitle.setMetaTagsTitle("LensView");
     metaTagsDescription.setMetaTagsDescription(
       "The omnipresent comment section to discuss, fact-check, and share your views about any web page"
@@ -61,6 +66,17 @@
     );
     metaTagsImageAlt.setMetaTagsImageAlt("LensView Banner Image");
   });
+
+  const checkSearchQueryForOpeningCreateModal = () => {
+    const composeVal = $page.url.searchParams.get("compose");
+
+    if (composeVal) {
+      showAddNewPostModal = true;
+      userEnteredUrl = decodeURIComponent(composeVal);
+      // console.log("userEnteredUrl : ", userEnteredUrl);
+      isUrlInvalid = false;
+    }
+  };
 
   const handleChange = (
     event: CustomEvent<ObserverEventDetails>,
@@ -102,7 +118,7 @@
 <!----------------------------- HTML ----------------------------->
 <div class="youtube-link">
   <u class="youtube-link__video">
-    <a href="https://youtu.be/Q-Ni7IC5kxI?si=Y7yhWSOSFbW1U6jD" target="_blank">
+    <a href="https://www.youtube.com/watch?v=k5HQXqcYkRA" target="_blank">
       Check out this video
     </a>
   </u>
@@ -292,7 +308,7 @@
   </section>
 </MediaQuery>
 
-<AddNewPost bind:showAddNewPostModal />
+<AddNewPost {userEnteredUrl} {isUrlInvalid} bind:showAddNewPostModal />
 
 <!----------------------------------------------------------------->
 
@@ -554,12 +570,6 @@
     height: 5.2rem;
     overflow-wrap: anywhere;
     overflow: hidden;
-  }
-
-  @keyframes shine {
-    to {
-      background-position-x: -200%;
-    }
   }
 
   .card__post__user-pic-loader,

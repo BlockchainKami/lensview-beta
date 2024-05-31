@@ -11,9 +11,13 @@ export const ALLOWED_ORIGINS = {
     "http://localhost:3000",
     "http://localhost:5173",
     "http://localhost:4173",
-    "https://testnet.lensview.io"
+    "https://testnet.lensview.io",
+    "chrome-extension://nofkbijjbdeenhlekpehmkdoopfccdkf"
   ],
-  PRODUCTION: ["https://lensview.io"]
+  PRODUCTION: [
+    "https://lensview.io",
+    "chrome-extension://bhbcbfcabkodjhgkjccnoflnffcfkfnd"
+  ]
 };
 
 export const getPostMethod = () => {

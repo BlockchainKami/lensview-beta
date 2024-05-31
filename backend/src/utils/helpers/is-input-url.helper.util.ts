@@ -18,7 +18,7 @@ export const isInputTypeURLHelperUtil = (url: string) => {
   let urlRequest = url;
   try {
     // remove whitespaces and the fragment(#) part of the URL
-    url = url.trim().split("#")[0];
+    // url = url.trim().split("#")[0];
     // remove www from the url
     urlRequest = stripWww(url);
     // remove whitespaces from the start and end of the string

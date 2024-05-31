@@ -21,5 +21,17 @@ export enum AttributeKeyType {
   app = "app",
   createdOn = "createdOn",
   mainPostImageUrl = "mainPostImageUrl",
-  mainPostUrl = "mainPostUrl",
+  mainPostUrl = "mainPostUrl"
+}
+
+export enum SentimentColor {
+  positive = "#3EE54E",
+  negative = "#FDB84D",
+  neutral = "#6C6C6C"
+}
+
+export enum summarySentiment {
+  positive = "POSITIVE",
+  negative = "NEGATIVE",
+  neutral = "NEUTRAL"
 }

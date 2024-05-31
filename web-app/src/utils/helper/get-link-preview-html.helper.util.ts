@@ -1,6 +1,6 @@
 const extractTwitterIDFromLastLink = (content: string) => {
   console.log("content : " + content);
-  const pattern = /https:\/\/twitter\.com\/\w+\/status\/(\d+)/g;
+  const pattern = /https:\/\/(?:twitter|x)\.com\/\w+\/status\/(\d+)/g;
   const matches = [...content.matchAll(pattern)];
 
   if (matches.length > 0) {

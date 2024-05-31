@@ -38,6 +38,7 @@
   import { mainPostImageUrlStore } from "../../stores/main-post-image-url.store";
   import { mainPostUrlStore } from "../../stores/main-post-url.store";
   import NoWebPageImg from "$lib/assets/NoWebPageImg.png";
+  import { TotalImagePostsStore } from "../../stores/total-image-posts.store";
 
   const { addNotification } = getNotificationsContext();
   let mainPostPubId = $page.data.mainPostPubId;
@@ -341,7 +342,8 @@
                 class="CenterRowFlex tablet__main-post__info__top__posts-count"
               >
                 <Icon d={modeComment} />
-                {getTotalPosts(mainPostPub?.stats?.comments)}
+                {getTotalPosts(mainPostPub?.stats?.comments) -
+                  $TotalImagePostsStore}
               </div>
               <button
                 on:click={(event) => sharePost(event, $page.data.mainPostPubId)}
@@ -491,7 +493,8 @@
                 class="CenterRowFlex main-post__content__bottom__posts-count"
               >
                 <Icon d={modeComment} />
-                {getTotalPosts(mainPostPub?.stats?.comments)}
+                {getTotalPosts(mainPostPub?.stats?.comments) -
+                  $TotalImagePostsStore}
                 &nbsp;Posts
               </div>
               <button
@@ -786,12 +789,6 @@
     background: #0d171d;
     padding: 1.5rem;
     z-index: 10;
-  }
-
-  @keyframes shine {
-    to {
-      background-position-x: -200%;
-    }
   }
 
   .tablet__main-post__image__loader,

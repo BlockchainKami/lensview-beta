@@ -26,4 +26,8 @@ export const TAG_USER_PUB = process.env.TAG_USER_PUB as string;
 export const TAG_ANONYMOUS_PUB = process.env.TAG_ANONYMOUS_PUB as string;
 export const TAG_USER_POST = process.env.TAG_USER_POST as string;
 export const TAG_USER_COMMENT = process.env.TAG_USER_COMMENT as string;
+export const GEMINI_API_KEY = process.env.GEMINI_API_KEY as string;
+export const AYFIE_API_KEY = process.env.AYFIE_API_KEY as string;
+export const MONGODB_CONNECTION_STRING = process.env
+  .MONGODB_CONNECTION_STRING as string;
 export const POST_AND_COMMENT_CONFIG = POST_AND_COMMENT_TYPES.PROFILE_MANAGER;

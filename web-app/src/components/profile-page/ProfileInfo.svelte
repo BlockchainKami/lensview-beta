@@ -506,12 +506,6 @@
     font-size: var(--medium-font-size);
   }
 
-  @keyframes shine {
-    to {
-      background-position-x: -200%;
-    }
-  }
-
   .cover-image-loader,
   .profile-details__left__picture-loader,
   .profile-details__right__top-loader,

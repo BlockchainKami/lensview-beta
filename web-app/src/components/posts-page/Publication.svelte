@@ -553,12 +553,6 @@
     margin-top: 1rem;
   }
 
-  @keyframes shine {
-    to {
-      background-position-x: -200%;
-    }
-  }
-
   .comment__body__top__left__loader,
   .comment__body__top__right__loader,
   .comment__body__content__loader,

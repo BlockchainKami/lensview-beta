@@ -57,7 +57,7 @@ export const fetchScreenshotAndUploadToIPFSJobUtil = async (url: string) => {
  * @param {CIDString} imgCID - The CID of the image.
  * @return {string} The generated gateway URL for the image.
  */
-const makeGatewayURLImage = (imgCID: CIDString) => {
+export const makeGatewayURLImage = (imgCID: CIDString) => {
   return `https://${imgCID}.ipfs.nftstorage.link`;
 };
 

@@ -19,6 +19,8 @@ import { getPolygonGasPriceHelperUtil } from "../utils/helpers/get-polygon-gas-p
 import { splitSignatureHelperUtil } from "../utils/helpers/split-signature.helper.utils";
 import { createContractHelperUtils } from "../utils/helpers/create-contract.helper.utils";
 import { hasTransactionBeenIndexedIndexerUtil } from "../utils/indexer/has-transaction-been-indexed.indexer.util";
+import { getCommentMethod } from "../config/app-config.config";
+import { uploadImageFromDisk } from "../utils/helpers/upload-image-from-disk.helper.util";
 import { httpStatusCodes } from "../config/app-constants.config";
 import {
   APP_ADDRESS,
@@ -200,5 +202,42 @@ export const approveSignlessAdminController = async (
       "Error",
       httpStatusCodes.INTERNAL_SERVER_ERROR
     );
+  }
+};
+
+export const updateMainPostImageController = async (
+  req: Request,
+  res: Response
+) => {
+  try {
+    logger.info(
+      "admin.controller.ts : updateMainPostImageController: Execution Started."
+    );
+    const { url, filename } = req.body;
+    const urlString = isInputTypeURLHelperUtil(url);
+    const urlObj = preprocessURLAndCreateMetadataObjectHelperUtil(
+      urlString ? urlString : url,
+      APP_LENS_HANDLE,
+      null,
+      []
+    );
+    const publicationExists = await relatedParentPublicationsLensService([
+      urlObj.hashedURL
+    ]);
+    const imageMetadata = await uploadImageFromDisk(filename, urlObj);
+    await getCommentMethod()(publicationExists.items[0].id, imageMetadata);
+    logger.info(
+      "admin.controller.ts : updateMainPostImageController: Image Updated. Execution Ended."
+    );
+    return res.status(httpStatusCodes.OK).send({
+      message: "Image updated"
+    });
+  } catch (error) {
+    logger.info(
+      "admin.controller.ts : updateMainPostImageController: Failed. Execution Ended."
+    );
+    return res.status(httpStatusCodes.INTERNAL_SERVER_ERROR).send({
+      message: "Failed: " + error
+    });
   }
 };

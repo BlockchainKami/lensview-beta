@@ -518,12 +518,6 @@
     width: 14.8rem;
   }
 
-  @keyframes shine {
-    to {
-      background-position-x: -200%;
-    }
-  }
-
   .card__post__user-pic-loader,
   .card__post__info__head-loader,
   .card__post__info__body-loader,

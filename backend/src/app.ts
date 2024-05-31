@@ -2,6 +2,7 @@ import express, { Request, Response, NextFunction } from "express";
 import cors from "cors";
 import bodyParser from "body-parser";
 import { createNamespace } from "cls-hooked";
+import { initializeModules } from "./connections/initialize-modules.connection";
 import { v4 as uuidv4 } from "uuid";
 import routes from "./routes/index.route";
 
@@ -47,10 +48,16 @@ app.use(
 
 app.use("/", routes);
 
-app.use((err: Error, req: Request, res: Response, _next: NextFunction) => {
+app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
   res.status(404).json({ message: err.message });
 });
 
-app.listen(PORT, () => {
-  logger.info(`LensView server started at http://localhost:${PORT}`);
-});
+initializeModules()
+  .then(() => {
+    app.listen(PORT, () => {
+      logger.info(`LensView server started at http://localhost:${PORT}`);
+    });
+  })
+  .catch((error) => {
+    logger.error(error);
+  });

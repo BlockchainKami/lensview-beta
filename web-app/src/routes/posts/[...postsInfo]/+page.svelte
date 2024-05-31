@@ -31,7 +31,7 @@
         <MainPost />
       </div>
       <div class="right">
-        {#if postPubId !== undefined}
+        {#if postPubId !== undefined && postPubId !== ""}
           <Publication />
         {/if}
         <PostAPublication />

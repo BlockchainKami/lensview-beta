@@ -3,6 +3,7 @@
   import ProfilePost from "../../../components/profile-page/ProfilePost.svelte";
   import { feather, modeComment } from "../../../utils/app-icon.util";
   import Icon from "$lib/Icon.svelte";
+  import { tooltip } from "@svelte-plugins/tooltips";
 </script>
 
 <!----------------------------- HTML ----------------------------->
@@ -15,7 +16,17 @@
       <Icon d={feather} color="black" size="1.7em" />
       <span>&nbsp; LV Posts</span>
     </button>
-    <button class="btn inactive">
+    <button
+      class="btn inactive"
+      use:tooltip={{
+        content: "Coming Soon",
+        position: "right",
+        autoPosition: true,
+        align: "center",
+        animation: "slide",
+        theme: "custom-tooltip"
+      }}
+    >
       <Icon d={modeComment} color="#9da1a3" size="1.7em" />
       <span>&nbsp; LV Comments</span>
     </button>

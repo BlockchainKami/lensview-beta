@@ -1,5 +1,8 @@
 import express from "express";
-import { postAnonymousCommentController } from "../controllers/comments.controller";
+import {
+  getSummaryCommentController,
+  postAnonymousCommentController
+} from "../controllers/comments.controller";
 import { putAnonymousCommentController } from "../controllers/comments.controller";
 import {
   validatePostAnonymousCommentRequestMiddleware,
@@ -18,5 +21,7 @@ router.put(
   validatePutAnonymousCommentRequestMiddleware,
   putAnonymousCommentController
 );
+
+router.get("/summarize", getSummaryCommentController);
 
 export default router;

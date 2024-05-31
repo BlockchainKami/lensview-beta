@@ -1,10 +1,12 @@
 import { Request, Response } from "express";
+
 import { putAnonymousCommentBodyRequestModel } from "../models/requests/body/put-anonymous-comment.body.request.model";
 import {
   PublicationResponseModel,
   PublicationResponseModelForPostAnonymousComment
 } from "../models/response/publication.response.model";
 import PostAnonymousCommentRequestBodyModel from "../models/requests/body/post-anonymous-comment.body.request.model";
+import { CommentsSummaryResponseModel } from "../models/response/comments-summary.response.model";
 import {
   createMetaDataForAnonymousCommentHelperUtil,
   createMetaDataForUrlHelperUtil
@@ -14,10 +16,16 @@ import { relatedParentPublicationsLensService } from "../services/lens/related-p
 import { getMainPublicationImageLensService } from "../services/lens/get-main-publication-image.lens.service";
 import { getCommentMethod, getPostMethod } from "../config/app-config.config";
 import { preprocessURLAndCreateMetadataObjectHelperUtil } from "../utils/helpers/preprocess-url-and-create-metadata-object.helper.util";
+import { addCommentsSummaryDbUtil } from "../utils/db/add-comments-summary.db.util";
+import { getPublicationDbUtil } from "../utils/db/get-publication.db.util";
+import { updateCommentsSummaryDbUtil } from "../utils/db/update-comments-summary.db.util";
+import { getCommentsAndGenerateSummaryHelperUtil } from "../utils/helpers/get-comments-and-generate-summary.helper.util";
 import { httpStatusCodes } from "../config/app-constants.config";
 import { APP_LENS_HANDLE } from "../config/env.config";
 import { imageQueue } from "../jobs/add-image-queue.job";
 import { logger } from "../log/log-manager.log";
+import { SummaryQueryRequestModel } from "../models/requests/query/summary.query.request.model";
+import { isNewCommentAddedSinceLastUpdateHelperUtil } from "../utils/helpers/is-new-comment-added-since-last-update.helper.util";
 
 /**
  * Adds a URL or a post comment to the system.
@@ -184,6 +192,109 @@ export const putAnonymousCommentController = async (
     res.status(httpStatusCodes.INTERNAL_SERVER_ERROR).send({
       publicationID: req.body.pubId,
       message: "Failed to ADD ANONYMOUS COMMENT to LensView"
+    });
+  }
+};
+
+export const getSummaryCommentController = async (
+  req: Request<unknown, unknown, unknown, SummaryQueryRequestModel>,
+  res: Response<CommentsSummaryResponseModel>
+) => {
+  try {
+    logger.info(
+      "comments.controller.ts: getSummaryCommentController: Execution Started."
+    );
+    const publicationId = req.query.pubId;
+    const publicationData = await getPublicationDbUtil(publicationId);
+    if (publicationData) {
+      logger.info(
+        "comments.controller.ts: getSummaryCommentController: Publication found in DB."
+      );
+      const isNewCommentAdded =
+        await isNewCommentAddedSinceLastUpdateHelperUtil(
+          publicationData.commentCount,
+          publicationId
+        );
+      if (!isNewCommentAdded) {
+        const response = {
+          summary: publicationData.summary,
+          sentiment: publicationData.sentiment,
+          lastUpdatedAt: publicationData.updatedAt
+        };
+        logger.info(
+          "comments.controller.ts: getSummaryCommentController: Execution End. No new comment added since last update. Summary: " +
+            response.summary
+        );
+        res.status(httpStatusCodes.OK).send(response);
+      } else {
+        logger.info(
+          "comments.controller.ts: getSummaryCommentController: Publication found in DB. New comment found in publication since last update. Updating summary."
+        );
+        const response =
+          await getCommentsAndGenerateSummaryHelperUtil(publicationId);
+        if (!response && response === null) {
+          logger.info(
+            "comments.controller.ts: getSummaryCommentController: Execution End "
+          );
+          res.status(httpStatusCodes.NO_CONTENT).send({
+            summary: "Sorry! We failed to generate a summary for this thread",
+            sentiment: "",
+            lastUpdatedAt: null
+          });
+        } else {
+          logger.info(
+            "comments.controller.ts: getSummaryCommentController: Updating DB with updated summary."
+          );
+          await updateCommentsSummaryDbUtil(
+            publicationId,
+            response.summary,
+            response.commentCount
+          );
+          logger.info(
+            "comments.controller.ts: getSummaryCommentController: Execution Ended."
+          );
+          res.status(httpStatusCodes.OK).send(response.summary);
+        }
+      }
+    } else {
+      logger.info(
+        "comments.controller.ts: getSummaryCommentController: Publication not found in DB. Adding summary."
+      );
+      const response =
+        await getCommentsAndGenerateSummaryHelperUtil(publicationId);
+      if (!response && response === null) {
+        logger.info(
+          "comments.controller.ts: getSummaryCommentController: Execution End "
+        );
+        res.status(httpStatusCodes.NO_CONTENT).send({
+          summary: "Sorry! We failed to generate a summary for this thread",
+          sentiment: "",
+          lastUpdatedAt: null
+        });
+      } else {
+        logger.info(
+          "comments.controller.ts: getSummaryCommentController: Updating DB with summary."
+        );
+        await addCommentsSummaryDbUtil(
+          publicationId,
+          response.summary,
+          response.commentCount
+        );
+        logger.info(
+          "comments.controller.ts: getSummaryCommentController: Execution Ended."
+        );
+        res.status(httpStatusCodes.OK).send(response.summary);
+      }
+    }
+  } catch (error) {
+    logger.error(
+      "comments.controller.ts: getSummaryCommentController: Error in Execution: " +
+        error
+    );
+    res.status(httpStatusCodes.INTERNAL_SERVER_ERROR).send({
+      summary: "Sorry! We failed to generate a summary for this thread",
+      sentiment: "",
+      lastUpdatedAt: null
     });
   }
 };

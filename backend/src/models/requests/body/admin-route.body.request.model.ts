@@ -9,3 +9,9 @@ export interface ApproveSignlessAdminRouteBodyRequestModel {
   approveSignless?: boolean;
   url?: string;
 }
+
+export interface UpdateImageToPostAdminRouteBodyRequestModel {
+  secretKey: string;
+  url: string;
+  filename: string;
+}

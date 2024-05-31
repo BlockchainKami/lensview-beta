@@ -1,7 +1,7 @@
 import { writable } from "svelte/store";
 
 function manageTotalPosts() {
-  const totalPosts = writable();
+  const totalPosts = writable(0);
 
   return {
     subscribe: totalPosts.subscribe,

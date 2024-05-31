@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "@lens-protocol/metadata": "^1.0.5",
-    "@svelte-plugins/tooltips": "^0.1.6",
+    "@svelte-plugins/tooltips": "^3.0.1",
     "@urql/svelte": "^3.0.1",
     "autolinker": "^4.0.0",
     "axios": "^1.6.2",

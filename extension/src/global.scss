@@ -1,0 +1,314 @@
+/**
+* Naming convention to be followed in CSS:
+* https://www.freecodecamp.org/news/css-naming-conventions-that-will-save-you-hours-of-debugging-35cea737d849/
+**/
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+/**
+* Reset Reloaded : To reset all default HTML code
+* http://meyerweb.com/eric/thoughts/2007/05/01/reset-reloaded/
+**/
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  font-weight: inherit;
+  font-style: inherit;
+  font-size: 100%;
+  font-family: inherit;
+  vertical-align: baseline;
+}
+
+/* remember to define focus styles! */
+:focus {
+  outline: 0;
+}
+
+ol,
+ul {
+  list-style: none;
+}
+
+/* tables still need 'cellspacing="0"' in the markup */
+table {
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+caption,
+th,
+td {
+  text-align: left;
+  font-weight: normal;
+}
+
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: "";
+}
+
+blockquote,
+q {
+  quotes: "" "";
+}
+
+button {
+  all: unset;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+button[disabled] {
+  opacity: 50%;
+  cursor: initial;
+}
+
+select {
+  background: #0a1217;
+  color: var(--text);
+  padding-right: 1rem;
+  font-weight: var(--semi-medium-font-weight);
+}
+
+select option {
+  background: #2d4648;
+}
+
+option:hover {
+  background-color: yellow;
+}
+
+/*****************************************************/
+
+::-webkit-scrollbar {
+  width: 0.45rem;
+  height: 0.45rem;
+  background-color: transparent;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #14282e;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #32f9ff;
+  border-radius: 100vw;
+}
+
+::placeholder {
+  color: var(--text);
+  opacity: var(--text-opacity);
+}
+
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap");
+
+@font-face {
+  font-family: "mona-sans";
+  src: url("./lib/assets/MonaSansExpanded-Regular.woff2") format("woff2");
+  font-weight: 200 900;
+  font-stretch: 75% 125%;
+}
+
+@font-face {
+  font-family: "mona-sans-semi-bold";
+  src: url("./lib/assets/MonaSansExpanded-SemiBold.woff2") format("woff2");
+  font-weight: 200 900;
+  font-stretch: 75% 125%;
+}
+
+:root {
+  box-sizing: border-box;
+  font-family: "DM Sans", sans-serif;
+  transition: background 500ms ease-in-out, color 1000ms ease-in-out;
+  --primary: #32f9ff;
+  --secondary: #0d7377;
+  --special-font: "mona-sans", "DM Sans", sans-serif;
+  --special-font-semi-bold: "mona-sans-semi-bold", "DM Sans", sans-serif;
+  --text: #fff;
+  --text-accent: #a1a1a1;
+  --text-opacity: 0.7099999785423279;
+  --large-font-size: 36.75px;
+  --semi-large-font-size: 31.5px;
+  --medium-font-size: 19.25px;
+  --semi-medium-font-size: 13px;
+  --small-font-size: 10.5px;
+  --semi-small-font-size: 8px;
+  --semi-medium-font-weight: 500;
+  --medium-font-weight: 600;
+  font-size: var(--semi-medium-font-size);
+  --bg: linear-gradient(130deg, #0d171d 39.31%, #22454b 82%);
+  --bg-solid-1: #0d171d94;
+  --bg-solid-2: #18393a;
+  --bg-solid-3: #132e2e;
+  --bg-solid-4: #1b4b51;
+  --bg-solid-5: #0b1217;
+  --btn-bg: linear-gradient(121deg, #23f9ff 0%, #dbf1ff 100%);
+}
+
+body {
+  background: var(--bg) fixed;
+  line-height: 1.9em;
+  color: var(--text);
+  width: 390px;
+  height: 600px;
+}
+
+::backdrop {
+  background: var(--bg-solid-1);
+  backdrop-filter: blur(10px);
+}
+
+input {
+  width: 100%;
+  height: 2.7rem;
+  padding: 0 1rem;
+  border-radius: 0.75rem;
+  background: linear-gradient(
+                  172deg,
+                  rgba(50, 249, 255, 0.15) 33.55%,
+                  rgba(236, 254, 255, 0.15) 100%
+  );
+  color: var(--text);
+}
+
+/*********** Dialog ************/
+dialog {
+  max-width: 50rem;
+  min-height: 30rem;
+  inset: 0;
+  margin: auto;
+  background: transparent;
+}
+
+dialog[open] {
+  animation: fade-in 0.4s ease-in-out;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+dialog[open]::backdrop {
+  animation: fade-in-backdrop 0.15s ease-out;
+}
+
+@keyframes fade-in-backdrop {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/*******************************/
+
+a {
+  color: currentColor;
+  text-decoration: none;
+}
+
+.links {
+  color: var(--primary);
+  text-decoration: none;
+}
+
+.CenterRowFlex {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.CenterColumnFlex {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.BoxShadow {
+  box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.034),
+  0 6.7px 5.3px rgba(0, 0, 0, 0.048), 0 12.5px 10px rgba(0, 0, 0, 0.06),
+  0 22.3px 17.9px rgba(0, 0, 0, 0.072), 0 41.8px 33.4px rgba(0, 0, 0, 0.086),
+  0 100px 80px rgba(0, 0, 0, 0.12);
+}
+
+.btn {
+  padding: 0.7em 1.2em;
+  font-weight: var(--semi-medium-font-weight);
+  border-radius: 5px;
+  background: var(--btn-bg);
+  color: black;
+  display: flex;
+  justify-content: center;
+}
+
+.btn-alt {
+  --btn-alt-color: #1e4748;
+  padding: 0.7em 1.2em;
+  font-weight: var(--semi-medium-font-weight);
+  color: #fff;
+  border-radius: 9px;
+  border: 2px solid transparent;
+  background: linear-gradient(var(--btn-alt-color), var(--btn-alt-color))
+  padding-box,
+  linear-gradient(244deg, #23f9ff 0%, #dbf1ff 100%);
+}
+
+.h1 {
+  font-family: "mona-sans", "DM Sans", sans-serif;
+  font-size: var(--large-font-size);
+}
+
+.h2 {
+  font-family: "mona-sans", "DM Sans", sans-serif;
+  font-size: var(--semi-large-font-size);
+}
+
+.h3 {
+  font-family: "mona-sans", "DM Sans", sans-serif;
+  font-size: var(--medium-font-size);
+  font-weight: var(--semi-medium-font-weight);
+}
+
+.dot{
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #fff;
+}
+
+.tooltip.custom-tooltip {
+  --tooltip-background-color: #18242c;
+  --tooltip-border-radius: 5px;
+  --tooltip-box-shadow: 0 1px 20px rgba(0, 0, 0, 0.25);
+  --tooltip-font-family: "DM Sans", sans-serif;
+  --tooltip-font-size: var(--small-font-size);
+  --tooltip-color: var(--primary);
+  --tooltip-offset-x: 12px;
+  --tooltip-offset-y: 12px;
+  --tooltip-padding: 0.5rem;
+  --tooltip-z-index: 100;
+  --tooltip-arrow-size: 10px;
+}
+
+@keyframes shine {
+  to {
+    background-position-x: -200%;
+  }
+}
